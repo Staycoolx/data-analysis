@@ -1,36 +1,38 @@
 # Data Analysis Skill 📊
 
+🇨🇳 [中文指南 (Chinese Guide)](README_CN.md)
+
 A comprehensive data analysis toolkit for Claude Code, designed to automate the **D-D-S-P** (Describe, Diagnose, Segment, Predict) workflow.
 
 > **Philosophy**: Don't just run code; think like an analyst. This skill guides you from "What happened?" to "What will happen?" using robust, automated scripts.
 
 ## 🌟 Core Features
 
-### 1. Describe (看全貌) - `auto_eda.py`
+### 1. Describe - `auto_eda.py`
 **Goal**: Understand data quality, distribution, and basic stats.
 - Auto-detects missing values and outliers.
 - Generates distribution plots and correlation heatmaps.
 - **Usage**: `python3 scripts/auto_eda.py data.csv --target Sales`
 
-### 2. Diagnose (找原因) - `analyze_drivers_optimized.py`
+### 2. Diagnose - `analyze_drivers_optimized.py`
 **Goal**: Identify key factors driving the target variable.
 - Uses Random Forest Permutation Importance to rank drivers.
 - Auto-detects Classification vs. Regression tasks.
 - **Usage**: `python3 scripts/analyze_drivers_optimized.py data.csv Churn --output report`
 
-### 3. Segment (做细分) - `analyze_groups.py`
+### 3. Segment - `analyze_groups.py`
 **Goal**: Compare performance across different cohorts.
 - Auto-bins numerical variables (e.g., Age groups).
 - Aggregates metrics (mean, sum, count) by group.
 - **Usage**: `python3 scripts/analyze_groups.py data.csv Region Sales`
 
-### 4. Predict (测未来) - `predict_target.py`
+### 4. Predict - `predict_target.py`
 **Goal**: Forecast future outcomes or classify new data.
 - Trains robust baseline models (Random Forest).
 - Outputs predictions CSV and reusable model file (`.joblib`).
 - **Usage**: `python3 scripts/predict_target.py data.csv Sales --output prediction`
 
-### 5. Time Series (看趋势) - `forecast_timeseries_std.py`
+### 5. Time Series - `forecast_timeseries_std.py`
 **Goal**: Analyze trends, seasonality, and holiday effects.
 - Decomposes time series into Trend and Seasonal components.
 - Analyzes hourly patterns and weekend/holiday effects.
@@ -79,6 +81,8 @@ git clone https://github.com/Staycoolx/data-analysis.git
 ```
 data-analysis/
 ├── SKILL.md                 # Main guide for Claude
+├── README.md                # English documentation
+├── README_CN.md             # Chinese documentation
 ├── scripts/                 # Automation scripts
 │   ├── auto_eda.py
 │   ├── analyze_drivers.py
