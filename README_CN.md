@@ -12,31 +12,31 @@
 **目标**：快速了解数据全貌（质量、分布、统计量）。
 - 自动检测缺失值和异常值。
 - 生成分布直方图和相关性热力图。
-- **用法**：`python3 scripts/auto_eda.py data.csv --target Sales`
+- **用法**：`python3 scripts/auto_eda.py data.csv --target 目标列名`
 
 ### 2. 归因分析 (Diagnose) - `analyze_drivers_optimized.py`
 **目标**：找出影响目标变量的核心因子（为什么发生？）。
 - 使用随机森林排列重要性 (Permutation Importance) 对因子进行排名。
 - 自动识别分类任务（如流失预测）或回归任务（如销量预测）。
-- **用法**：`python3 scripts/analyze_drivers_optimized.py data.csv Churn --output report`
+- **用法**：`python3 scripts/analyze_drivers_optimized.py data.csv 目标列名 --output report`
 
 ### 3. 分组洞察 (Segment) - `analyze_groups.py`
 **目标**：对比不同细分群体的表现（谁表现更好？）。
 - 自动对数值型变量（如年龄、价格）进行分箱处理。
 - 按组聚合关键指标（均值、总和、计数）。
-- **用法**：`python3 scripts/analyze_groups.py data.csv Region Sales`
+- **用法**：`python3 scripts/analyze_groups.py data.csv 分组列名 目标列名`
 
 ### 4. 预测建模 (Predict) - `predict_target.py`
 **目标**：预测未来结果或对新数据进行分类。
 - 训练稳健的基准模型 (Random Forest)。
 - 输出包含预测值的 CSV 文件和可复用的模型文件 (`.joblib`)。
-- **用法**：`python3 scripts/predict_target.py data.csv Sales --output prediction`
+- **用法**：`python3 scripts/predict_target.py data.csv 目标列名 --output prediction`
 
 ### 5. 时序分析 (Time Series) - `forecast_timeseries_std.py`
 **目标**：分析长期趋势、季节性和假日效应。
 - 将时间序列分解为长期趋势 (Trend) 和季节性 (Seasonal) 成分。
 - 分析一天中的小时趋势 (Hourly Pattern) 和周末/假日效应。
-- **用法**：`python3 scripts/forecast_timeseries_std.py power.csv MW --datetime_col Timestamp`
+- **用法**：`python3 scripts/forecast_timeseries_std.py data.csv 数值列 --datetime_col 时间列`
 
 ---
 
@@ -54,24 +54,23 @@ pip install pandas numpy matplotlib seaborn scikit-learn statsmodels holidays jo
 git clone https://github.com/Staycoolx/data-analysis.git
 ```
 
-### 实战示例
-**场景**：分析员工流失数据 (`HR_data.csv`)
+### 标准使用流程
 
 1.  **体检**：数据质量如何？
     ```bash
-    python3 scripts/auto_eda.py HR_data.csv --target Attrition
+    python3 scripts/auto_eda.py your_data.csv --target 目标列名
     ```
-2.  **归因**：为什么员工会离职？
+2.  **归因**：核心驱动因子是什么？
     ```bash
-    python3 scripts/analyze_drivers_optimized.py HR_data.csv Attrition
+    python3 scripts/analyze_drivers_optimized.py your_data.csv 目标列名
     ```
-3.  **对比**：哪个部门流失最严重？
+3.  **对比**：不同分组表现如何？
     ```bash
-    python3 scripts/analyze_groups.py HR_data.csv Department Attrition
+    python3 scripts/analyze_groups.py your_data.csv 分组列名 目标列名
     ```
-4.  **预测**：谁是下一个流失的高风险员工？
+4.  **预测**：未来趋势如何？
     ```bash
-    python3 scripts/predict_target.py HR_data.csv Attrition
+    python3 scripts/predict_target.py your_data.csv 目标列名
     ```
 
 ---

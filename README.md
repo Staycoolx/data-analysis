@@ -12,31 +12,31 @@ A comprehensive data analysis toolkit for Claude Code, designed to automate the 
 **Goal**: Understand data quality, distribution, and basic stats.
 - Auto-detects missing values and outliers.
 - Generates distribution plots and correlation heatmaps.
-- **Usage**: `python3 scripts/auto_eda.py data.csv --target Sales`
+- **Usage**: `python3 scripts/auto_eda.py data.csv --target target_col`
 
 ### 2. Diagnose - `analyze_drivers_optimized.py`
 **Goal**: Identify key factors driving the target variable.
 - Uses Random Forest Permutation Importance to rank drivers.
 - Auto-detects Classification vs. Regression tasks.
-- **Usage**: `python3 scripts/analyze_drivers_optimized.py data.csv Churn --output report`
+- **Usage**: `python3 scripts/analyze_drivers_optimized.py data.csv target_col --output report`
 
 ### 3. Segment - `analyze_groups.py`
 **Goal**: Compare performance across different cohorts.
 - Auto-bins numerical variables (e.g., Age groups).
 - Aggregates metrics (mean, sum, count) by group.
-- **Usage**: `python3 scripts/analyze_groups.py data.csv Region Sales`
+- **Usage**: `python3 scripts/analyze_groups.py data.csv group_col target_col`
 
 ### 4. Predict - `predict_target.py`
 **Goal**: Forecast future outcomes or classify new data.
 - Trains robust baseline models (Random Forest).
 - Outputs predictions CSV and reusable model file (`.joblib`).
-- **Usage**: `python3 scripts/predict_target.py data.csv Sales --output prediction`
+- **Usage**: `python3 scripts/predict_target.py data.csv target_col --output prediction`
 
 ### 5. Time Series - `forecast_timeseries_std.py`
 **Goal**: Analyze trends, seasonality, and holiday effects.
 - Decomposes time series into Trend and Seasonal components.
 - Analyzes hourly patterns and weekend/holiday effects.
-- **Usage**: `python3 scripts/forecast_timeseries_std.py power.csv MW --datetime_col Timestamp`
+- **Usage**: `python3 scripts/forecast_timeseries_std.py time_series_data.csv value_col --datetime_col date_col`
 
 ---
 
@@ -54,24 +54,23 @@ Clone this repository to your local machine:
 git clone https://github.com/Staycoolx/data-analysis.git
 ```
 
-### Example Workflow
-**Scenario**: Analyzing Employee Attrition (`HR_data.csv`)
+### Standard Workflow
 
 1.  **Check Data Quality**:
     ```bash
-    python3 scripts/auto_eda.py HR_data.csv --target Attrition
+    python3 scripts/auto_eda.py your_data.csv --target target_col
     ```
-2.  **Find Why They Leave**:
+2.  **Find Key Drivers**:
     ```bash
-    python3 scripts/analyze_drivers_optimized.py HR_data.csv Attrition
+    python3 scripts/analyze_drivers_optimized.py your_data.csv target_col
     ```
-3.  **Compare Departments**:
+3.  **Compare Segments**:
     ```bash
-    python3 scripts/analyze_groups.py HR_data.csv Department Attrition
+    python3 scripts/analyze_groups.py your_data.csv group_col target_col
     ```
-4.  **Predict Future Risk**:
+4.  **Predict Future**:
     ```bash
-    python3 scripts/predict_target.py HR_data.csv Attrition
+    python3 scripts/predict_target.py your_data.csv target_col
     ```
 
 ---
