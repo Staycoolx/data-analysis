@@ -1,0 +1,94 @@
+# Data Analysis Skill 📊
+
+A comprehensive data analysis toolkit for Claude Code, designed to automate the **D-D-S-P** (Describe, Diagnose, Segment, Predict) workflow.
+
+> **Philosophy**: Don't just run code; think like an analyst. This skill guides you from "What happened?" to "What will happen?" using robust, automated scripts.
+
+## 🌟 Core Features
+
+### 1. Describe (看全貌) - `auto_eda.py`
+**Goal**: Understand data quality, distribution, and basic stats.
+- Auto-detects missing values and outliers.
+- Generates distribution plots and correlation heatmaps.
+- **Usage**: `python3 scripts/auto_eda.py data.csv --target Sales`
+
+### 2. Diagnose (找原因) - `analyze_drivers_optimized.py`
+**Goal**: Identify key factors driving the target variable.
+- Uses Random Forest Permutation Importance to rank drivers.
+- Auto-detects Classification vs. Regression tasks.
+- **Usage**: `python3 scripts/analyze_drivers_optimized.py data.csv Churn --output report`
+
+### 3. Segment (做细分) - `analyze_groups.py`
+**Goal**: Compare performance across different cohorts.
+- Auto-bins numerical variables (e.g., Age groups).
+- Aggregates metrics (mean, sum, count) by group.
+- **Usage**: `python3 scripts/analyze_groups.py data.csv Region Sales`
+
+### 4. Predict (测未来) - `predict_target.py`
+**Goal**: Forecast future outcomes or classify new data.
+- Trains robust baseline models (Random Forest).
+- Outputs predictions CSV and reusable model file (`.joblib`).
+- **Usage**: `python3 scripts/predict_target.py data.csv Sales --output prediction`
+
+### 5. Time Series (看趋势) - `forecast_timeseries_std.py`
+**Goal**: Analyze trends, seasonality, and holiday effects.
+- Decomposes time series into Trend and Seasonal components.
+- Analyzes hourly patterns and weekend/holiday effects.
+- **Usage**: `python3 scripts/forecast_timeseries_std.py power.csv MW --datetime_col Timestamp`
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+This toolkit relies only on standard Python data science libraries to ensure stability:
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn statsmodels holidays joblib
+```
+
+### Installation
+Clone this repository to your local machine:
+```bash
+git clone https://github.com/Staycoolx/data-analysis.git
+```
+
+### Example Workflow
+**Scenario**: Analyzing Employee Attrition (`HR_data.csv`)
+
+1.  **Check Data Quality**:
+    ```bash
+    python3 scripts/auto_eda.py HR_data.csv --target Attrition
+    ```
+2.  **Find Why They Leave**:
+    ```bash
+    python3 scripts/analyze_drivers_optimized.py HR_data.csv Attrition
+    ```
+3.  **Compare Departments**:
+    ```bash
+    python3 scripts/analyze_groups.py HR_data.csv Department Attrition
+    ```
+4.  **Predict Future Risk**:
+    ```bash
+    python3 scripts/predict_target.py HR_data.csv Attrition
+    ```
+
+---
+
+## 🛠 Project Structure
+
+```
+data-analysis/
+├── SKILL.md                 # Main guide for Claude
+├── scripts/                 # Automation scripts
+│   ├── auto_eda.py
+│   ├── analyze_drivers.py
+│   ├── analyze_groups.py
+│   ├── predict_target.py
+│   └── ...
+└── references/              # Contextual guides
+    ├── causal-inference.md
+    └── code-templates.md
+```
+
+## 📝 License
+MIT License
