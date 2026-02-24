@@ -341,6 +341,84 @@ pip install openpyxl pandas python-pptx Pillow
 
 ---
 
+## 因果推断工作流
+
+### 何时使用
+
+当用户需要回答「X变化对Y的影响是多少」这类问题时：
+- 策略升级效果评估
+- 政策/补贴效果分析
+- 推荐系统/功能上线效果
+- 用户分群策略对比
+
+### 因果方法决策树
+
+```
+分析目标
+    │
+    ├─ 因果推断（排除混杂因素）？
+    │   │
+    │   ├─ 有明确时间突变点？
+    │   │   │
+    │   │   ├─ 有分组（处理组+对照组）→ DID（双重差分）
+    │   │   │   脚本: `analyze_did.py`
+    │   │   │
+    │   │   └─ 无分组 → RDD（断点回归）
+    │   │       参考: causal-inference.md 第6节
+    │   │
+    │   └─ 无明确时间突变点？
+    │       │
+    │       └─ 有分组 → PSM（倾向得分匹配）
+    │           参考: causal-inference.md 第1节
+    │
+    └─ 仅效果描述（不需要因果）
+        → 直接分组对比（analyze_groups.py）
+```
+
+### DID分析标准流程
+
+```bash
+# Step 1: 运行 DID 分析
+python3 scripts/analyze_did.py data.csv \
+    --treatment channel \
+    --outcome retention_d1 \
+    --time register_date \
+    --group user_id \
+    --output did_report
+
+# Step 2: 带协变量的 DID
+python3 scripts/analyze_did.py data.csv \
+    --treatment is_new_strategy \
+    --outcome retention \
+    --time date \
+    --group channel \
+    --covariates age,gender,device \
+    --output did_report_with_controls
+```
+
+### DID 分析结果解读
+
+| 输出项 | 含义 |
+|-------|------|
+| DID Estimate | 因果效应大小（处理组变化 - 对照组变化） |
+| p-value | 统计显著性（<0.05 为显著） |
+| 95% CI | 效应置信区间 |
+| 平行趋势检验 | 假设是否满足（通过=结果可靠） |
+
+### 常见业务场景
+
+| 场景 | 方法 | 关键数据要求 |
+|------|------|-------------|
+| 推荐系统升级 | DID | 需要有未升级的对照组渠道 |
+| 新用户补贴 | DID/PSM | 需要有未补贴用户对比 |
+| 会员权益价值 | PSM | 需要用户特征用于匹配 |
+| 达到阈值奖励 | RDD | 需要明确的阈值 cutoff |
+| 城市政策效果 | 合成控制法 | 需要多个对照城市 |
+
+详见：`references/causal-inference.md`
+
+---
+
 ## 文件输出约定
 
 | 类型 | 命名规范 |

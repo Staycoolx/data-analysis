@@ -52,6 +52,13 @@ Phase 1: D-D-S-P 分析管道（脚本驱动）
 | **Segment** 做细分 | `analyze_groups.py` | `python3 scripts/analyze_groups.py data.csv group_col target_col --agg mean sum count` |
 | **Predict** 测未来 | `predict_target.py` | `python3 scripts/predict_target.py data.csv target_col --output prediction_result` |
 
+**因果推断**：
+| 工具 | 命令 |
+|------|------|
+| **DID分析** | `python3 scripts/analyze_did.py data.csv --treatment channel --outcome retention --time date --group user_id --output did_report` |
+
+详见 [references/causal-inference.md](references/causal-inference.md) 和 [references/causal-scenarios.md](references/causal-scenarios.md)
+
 **数据读取辅助**：
 - Excel → `python3 scripts/read_excel.py file.xlsx`
 - PPTX → `python3 scripts/read_pptx.py file.pptx`
@@ -172,5 +179,6 @@ node scripts/build_pptx.js                            # 多页合并
 | PPT 风格参数 | `references/visual-design-system.md` |
 | 详细工作流 | `references/workflows.md` |
 | 投放/广告分析领域知识 | `references/ad-analytics.md` |
-| 因果推断方法 | `references/causal-inference.md` |
+| 因果推断方法详解 | `references/causal-inference.md` |
+| 因果推断业务场景库 | `references/causal-scenarios.md` |
 | 代码模板 | `references/code-templates.md` |
